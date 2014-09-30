@@ -1,1 +1,3 @@
-rummy-O.exe rummy-O.hi rummy-O.o
+rummy-O.exe
+rummy-O.hi
+*.o
