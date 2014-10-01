@@ -103,6 +103,12 @@ arrange :: [Tile] -> ([Tile], Bool)
 arrange x
     = (x, isValid x)
 
+comb :: [a] -> Int -> [[a]]    
+comb l n
+    | n == 1 = map (:[]) l
+    | length l == n = [l]
+    | otherwise = (map ((head l):) (comb (tail l) (n-1))) ++ (comb (tail l) n)
+    
 -- Tests
 
 testEmptyIsNotValid
@@ -208,9 +214,3 @@ main = if allSuites
     else print "Failure!!"
 
 
-    
-let comb l | length l < 4 = [l] | otherwise = [(tail l)] ++ (comb (tail l))
-
-let append xs x = xs ++ [x]
-let c xs l = map (append (xs++[head l])) (tail l)
-let d l = c [] (tail l)
