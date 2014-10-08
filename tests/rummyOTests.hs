@@ -78,29 +78,29 @@ isValidSuite = testEmptyIsNotValid
     && testJokerDoesBreakSeries
     
 
-testCanInsertSameNumberTileToSequenceOfSame
-    = canInsert [red4, blue4, black4] yellow4
-    && canInsert [blue1, red1] yellow1
+testCanInsertSameNumberTileToSequenceOfSame = TestCase (assertBool "testCanInsertSameNumberTileToSequenceOfSame" (
+    canInsert [red4, blue4, black4] yellow4
+    && canInsert [blue1, red1] yellow1))
 
-testCanInsertConsecutiveTileToSeries
-    = canInsert [red1,red2,red3] red4
+testCanInsertConsecutiveTileToSeries = TestCase (assertBool "testCanInsertConsecutiveTileToSeries" (
+    canInsert [red1,red2,red3] red4
     && canInsert [red5,red6,red7] red4
     && canInsert [blue5,blue6] blue7
-    && canInsert [blue5,blue6] blue4
+    && canInsert [blue5,blue6] blue4))
 
-canInsertSuite
-    = testCanInsertSameNumberTileToSequenceOfSame
-    && testCanInsertConsecutiveTileToSeries
+canInsertSuite = TestList [
+    testCanInsertSameNumberTileToSequenceOfSame, 
+    testCanInsertConsecutiveTileToSeries ]
 
 testArrangeCanFormSequenceOfSame
     = let r = arrange [red1,yellow1,blue1]
     in snd r
     
-arrangeSuite
-    = testArrangeCanFormSequenceOfSame
+arrangeSuite = TestCase (assertBool "arrangeSuite" testArrangeCanFormSequenceOfSame)
 
-allSuites = isValidSuite && canInsertSuite && arrangeSuite
-
-tests = TestCase (assertBool "old stuff" allSuites)
+tests = TestList [
+    (TestCase (assertBool "suite" isValidSuite)),
+    canInsertSuite,
+    arrangeSuite]
 
 main = runTestTT tests
