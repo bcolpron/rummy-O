@@ -79,8 +79,8 @@ isValidSuite = testEmptyIsNotValid
     
 
 testCanInsertSameNumberTileToSequenceOfSame = TestList [
-    TestCase (assertBool "canInsert yellow4 in [red4, blue4, black4]" (canInsert [red4, blue4, black4] yellow4)),
-    TestCase (assertBool "canInsert yellow1 in [blue1, red1]"         (canInsert [blue1, red1] yellow1)) ]
+    TestCase (assertBool "canInsert yellow4 into [red4, blue4, black4]" (canInsert [red4, blue4, black4] yellow4)),
+    TestCase (assertBool "canInsert yellow1 into [blue1, red1]"         (canInsert [blue1, red1] yellow1)) ]
 
 testCanInsertConsecutiveTileToSeries = TestCase (assertBool "testCanInsertConsecutiveTileToSeries" (
     canInsert [red1,red2,red3] red4
@@ -91,12 +91,8 @@ testCanInsertConsecutiveTileToSeries = TestCase (assertBool "testCanInsertConsec
 canInsertSuite = TestList [
     testCanInsertSameNumberTileToSequenceOfSame, 
     testCanInsertConsecutiveTileToSeries ]
-
-testArrangeCanFormSequenceOfSame
-    = let r = arrange [red1,yellow1,blue1]
-    in snd r
-    
-arrangeSuite = TestCase (assertBool "arrangeSuite" testArrangeCanFormSequenceOfSame)
+   
+arrangeSuite = TestCase (assertBool "arrangeSuite" (let r = arrange [red1,yellow1,blue1] in snd r))
 
 tests = TestList [
     (TestCase (assertBool "suite" isValidSuite)),
